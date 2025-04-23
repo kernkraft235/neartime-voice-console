@@ -3,7 +3,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const { handleSTT, handleTTS } = require('../api/elevenlabs');
+const { handleSTT, handleTTS, getVoices } = require('../api/elevenlabs');
 const { handleOpenRouterRequest } = require('../api/openrouter');
 const { handleGeminiRequest } = require('../api/gemini');
 const { authenticateUser, verifyToken } = require('../utils/auth');
@@ -29,8 +29,11 @@ app.post('/api/stt', verifyToken, async (req, res) => {
 
 app.post('/api/tts', verifyToken, async (req, res) => {
   try {
-    const audio = await handleTTS(req.body.text, req.body.voiceId, req.body.parameters);
-    res.json({ audio });
+    // Pass voice_settings instead of parameters
+    const audioBuffer = await handleTTS(req.body.text, req.body.voiceId, req.body.voice_settings);
+    // Send the audio buffer directly with the correct content type
+    res.set('Content-Type', 'audio/mpeg');
+    res.send(audioBuffer);
   } catch (error) {
     logError('TTS Error', error);
     res.status(500).json({ error: 'TTS Error' });
@@ -49,8 +52,10 @@ app.post('/api/openrouter', verifyToken, async (req, res) => {
 
 app.post('/api/gemini', verifyToken, async (req, res) => {
   try {
-    const { image, description } = await handleGeminiRequest(req.body.prompt);
-    res.json({ image, description });
+    // handleGeminiRequest now returns only the generated text string
+    const generatedText = await handleGeminiRequest(req.body.prompt);
+    // Return the text in a standard 'text' field
+    res.json({ text: generatedText });
   } catch (error) {
     logError('Gemini Error', error);
     res.status(500).json({ error: 'Gemini Error' });
@@ -64,6 +69,17 @@ app.post('/api/auth', async (req, res) => {
   } catch (error) {
     logError('Authentication Error', error);
     res.status(500).json({ error: 'Authentication Error' });
+  }
+});
+
+// New endpoint to fetch ElevenLabs voices
+app.get('/api/elevenlabs/voices', verifyToken, async (req, res) => {
+  try {
+    const voicesData = await getVoices();
+    res.json(voicesData); // Send the full voices data structure
+  } catch (error) {
+    logError('ElevenLabs Voices Error', error);
+    res.status(500).json({ error: 'Error fetching ElevenLabs voices' });
   }
 });
 
