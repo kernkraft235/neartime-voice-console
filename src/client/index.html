@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Interaction App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Voice Interaction App</h1>
+    </header>
+    <main>
+        <section id="controls">
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+            <button id="pauseButton">Pause</button>
+            <button id="resumeButton">Resume</button>
+        </section>
+        <section id="voiceSelection">
+            <label for="voiceId">Select Voice:</label>
+            <select id="voiceId"></select>
+        </section>
+        <section id="parameters">
+            <label for="pitch">Pitch:</label>
+            <input type="range" id="pitch" min="0" max="2" step="0.1" value="1">
+            <label for="speed">Speed:</label>
+            <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1">
+            <label for="volume">Volume:</label>
+            <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+        </section>
+        <section id="transcription">
+            <h2>Transcription</h2>
+            <p id="transcriptionText"></p>
+        </section>
+        <section id="response">
+            <h2>Response</h2>
+            <p id="responseText"></p>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

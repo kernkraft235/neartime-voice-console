@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    image: voice-interaction-app
+    ports:
+      - "3000:3000"
+    environment:
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - .:/app
+    command: sh -c "tailscale up --authkey=${TAILSCALE_AUTH_KEY} && npm start"
+  tailscale:
+    image: tailscale/tailscale
+    environment:
+      - TAILSCALE_AUTH_KEY=${TAILSCALE_AUTH_KEY}
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    command: tailscaled

@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+section {
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+#transcription, #response {
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#transcriptionText, #responseText {
+    margin: 0;
+}
+
+/* Light mode styles */
+body.light-mode {
+    background-color: #f4f4f4;
+    color: #000;
+}
+
+header.light-mode {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button.light-mode {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button.light-mode:hover {
+    background-color: #45a049;
+}
+
+#transcription.light-mode, #response.light-mode {
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+header.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+button.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+button.dark-mode:hover {
+    background-color: #444;
+}
+
+#transcription.dark-mode, #response.dark-mode {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+}
