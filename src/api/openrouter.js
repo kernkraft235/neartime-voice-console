@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-const OPENROUTER_API_URL = 'https://api.openrouter.io';
+const OPENROUTER_API_URL = 'https://api.openrouter.ai';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 async function sendRequestToOpenRouter(data) {
   try {
-    const response = await axios.post(`${OPENROUTER_API_URL}/request`, data, {
+    const response = await axios.post(`${OPENROUTER_API_URL}/api/v1/chat/completions`, data, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`
